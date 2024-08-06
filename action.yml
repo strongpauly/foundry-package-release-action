@@ -1,0 +1,39 @@
+name: 'Foundry Manifest Update Action'
+description: 'GitHub Action to Update Foundry VTT Manifest in main After a Release'
+inputs:
+  actionToken:
+    description: 'Github Token'
+    required: true
+    default: 'World'
+  compatibilityMax:
+    description: 'Maximum core Foundry version this module is compatible with'
+    required: true
+    default: '12'
+  compatibilityMin:
+    description: 'Minimum core Foundry version this module is compatible with'
+    required: true
+    default: '12'
+  compatibilityVerified:
+      description: 'Verified core Foundry version this module is compatible with'
+      required: true
+      default: '12'
+  dryRun:
+    description: 'true means that it will not actually update the package on the Foundry website'
+    required: true
+    default: 'true'
+  foundryToken:
+    description: 'Verified core Foundry version this module is compatible with.'
+    required: true
+    default: '${{ secrets.FOUNDRY_PACKAGE_RELEASE_TOKEN }}'
+  manifestFileName:
+    description: 'Name of the Foundry Manifest File, either system.json or module.json'
+    required: true
+    default: 'module.json'
+  versionFileName:
+    description: 'Name of the file in the release that contains the version number'
+    required: true
+    default: 'version.txt'
+
+runs:
+  using: 'node20'
+  main: 'index.js'
