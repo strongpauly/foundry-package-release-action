@@ -40,7 +40,8 @@ async function updatePackage () {
     const manifestUrl = `https://api.github.com/repos/${owner}/${repo}/releases/assets/${assetID}`
     console.log(manifestUrl)
 
-    const versionFileData = await fetch(manifestUrl).json()
+    const versionFileResponse = await fetch(manifestUrl)
+    const versionFileData = versionFileResponse.json()
     console.log(versionFileData)
     const version = versionFileData.version
 
