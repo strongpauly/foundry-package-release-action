@@ -37,7 +37,7 @@ async function updatePackage () {
       core.setFailed('No AssetID for manifest file')
     }
 
-    const manifestUrl = `https://github.com/${owner}/${repo}/releases/download/${version}/${manifestFileName}`
+    const manifestUrl = `https://api.github.com/repos/${owner}/${repo}/releases/assets/${assetID}`
     console.log(manifestUrl)
 
     const versionFileData = await fetch(manifestUrl).json()
