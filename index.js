@@ -14,7 +14,6 @@ const manifestFileName = core.getInput('manifestFileName')
 const octokit = github.getOctokit(actionToken)
 const owner = github.context.payload.repository.owner.login
 const repo = github.context.payload.repository.name
-const versionFileName = core.getInput('versionFileName')
 
 async function updatePackage () {
   try {
@@ -29,26 +28,27 @@ async function updatePackage () {
     // Get the Asset ID of the version file from the release info
     let assetID = 0
     for (const item of latestRelease.data.assets) {
-      if (item.name === versionFileName) {
+      if (item.name === manifestFileName) {
         assetID = item.id
       }
     }
     if (assetID === 0) {
       console.log(latestRelease)
-      core.setFailed('No AssetID for version file')
+      core.setFailed('No AssetID for manifest file')
     }
-
-    const versionFileURL = `https://api.github.com/repos/${owner}/${repo}/releases/assets/${assetID}`
-    console.log(versionFileURL)
-    const version = await fetch(versionFileURL)
-    console.log(version)
 
     const manifestUrl = `https://github.com/${owner}/${repo}/releases/download/${version}/${manifestFileName}`
     console.log(manifestUrl)
 
+    const versionFileData = await fetch(manifestUrl).json()
+    console.log(versionFileData)
+    const version = versionFileData.version
+
+    const compatibilityMinFromManifest = versionFileData.compatibility?.minumum
+    console.log(compatibilityMinFromManifest)
+
     const releaseNotesUrl = `https://github.com/${owner}/${repo}/releases/tag/${version}`
     console.log(releaseNotesUrl)
-
 
     const response = await fetch("https://api.foundryvtt.com/_api/packages/release_version/", {
       headers: {

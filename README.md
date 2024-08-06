@@ -34,7 +34,6 @@ jobs:
         uses: foundryvtt-dcc/foundry-package-release-action@main
         with:
           actionToken: ${{ secrets.GITHUB_TOKEN }}
-          versionFileName: 'version.txt'
           manifestFileName: 'system.json'
           compatibilityMin: '12'
           compatibilityMax: '12'
@@ -43,7 +42,6 @@ jobs:
           dryRun: false
 ```
 
-For `versionFileName` you will enter `version.txt` depending on your project.
 For `manifestFileName` you will enter `module.json` or `system.json` depending on your project.
 
 For:
