@@ -43,7 +43,6 @@ async function updatePackage () {
     console.log(assetFileData)
     const manifestFileResponse = await fetch(assetFileData.browser_download_url)
     const manifestFileData = await manifestFileResponse.json()
-    console.log("MANIFEST FILE DATA")
     console.log(manifestFileData)
     console.log(manifestFileData.version)
 
@@ -52,7 +51,7 @@ async function updatePackage () {
     const compatibilityMaxFromManifest = manifestFileData.compatibility?.maximum
     console.log(compatibilityMaxFromManifest)
 
-    const compatibilityMinFromManifest = manifestFileData.compatibility?.minumum
+    const compatibilityMinFromManifest = manifestFileData.compatibility?.minimum
     console.log(compatibilityMinFromManifest)
 
     const compatibilityVerifiedFromManifest = manifestFileData.compatibility?.verified
@@ -61,7 +60,7 @@ async function updatePackage () {
     const releaseNotesUrl = `https://github.com/${owner}/${repo}/releases/tag/${version}`
     console.log(releaseNotesUrl)
 
-    const response = await fetch("https://api.foundryvtt.com/_api/packages/release_version/", {
+    const foundryResponse = await fetch("https://api.foundryvtt.com/_api/packages/release_version/", {
       headers: {
         'Content-Type': 'application/json',
         'Authorization': foundryToken
@@ -82,9 +81,13 @@ async function updatePackage () {
         }
       })
     })
-    console.log(response)
-    const response_data = await response.json()
-    console.log(response_data)
+    console.log(foundryResponse)
+    if (foundryResponse.status === 200) {
+      const foundryResponseData = await foundryResponse.json()
+      console.log(foundryResponseData)
+    } else {
+      core.setFailed(foundryResponse.statusText)
+    }
 
   } catch (error) {
     core.setFailed(error.message)
