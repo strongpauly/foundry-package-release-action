@@ -46,12 +46,13 @@ async function updatePackage () {
     console.log(assetFileData)
     const manifestFileResponse = await fetch(assetFileData.browser_download_url)
     const manifestFileData = await manifestFileResponse.json()
+    console.log("MANIFEST FILE DATA")
     console.log(manifestFileData)
     console.log(manifestFileData.version)
 
     const version = manifestFileData.version
 
-    const compatibilityMinFromManifest = manifestFileData.compatibility?.minumum
+    const compatibilityMinFromManifest = manifestFileData.compatibility?.minumum || '12'
     console.log(compatibilityMinFromManifest)
 
     const releaseNotesUrl = `https://github.com/${owner}/${repo}/releases/tag/${version}`
@@ -77,9 +78,9 @@ async function updatePackage () {
           }
         }
       })
-    });
-    const response_data = await response.json()
+    })
     console.log(response_data)
+    const response_data = await response.json()
 
   } catch (error) {
     core.setFailed(error.message)
