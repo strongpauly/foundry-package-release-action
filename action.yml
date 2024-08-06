@@ -24,7 +24,7 @@ inputs:
   foundryToken:
     description: 'Verified core Foundry version this module is compatible with.'
     required: true
-    default: '${{ secrets.FOUNDRY_PACKAGE_RELEASE_TOKEN }}'
+    default: ''
   manifestFileName:
     description: 'Name of the Foundry Manifest File, either system.json or module.json'
     required: true
