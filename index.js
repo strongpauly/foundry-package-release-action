@@ -52,8 +52,14 @@ async function updatePackage () {
 
     const version = manifestFileData.version
 
-    const compatibilityMinFromManifest = manifestFileData.compatibility?.minumum || '12'
+    const compatibilityMaxFromManifest = manifestFileData.compatibility?.minumum || compatibilityMin
+    console.log(compatibilityMaxFromManifest)
+
+    const compatibilityMinFromManifest = manifestFileData.compatibility?.minumum || compatibilityMin
     console.log(compatibilityMinFromManifest)
+
+    const compatibilityVerifiedFromManifest = manifestFileData.compatibility?.minumum || compatibilityMin
+    console.log(compatibilityVerifiedFromManifest)
 
     const releaseNotesUrl = `https://github.com/${owner}/${repo}/releases/tag/${version}`
     console.log(releaseNotesUrl)
@@ -79,8 +85,9 @@ async function updatePackage () {
         }
       })
     })
-    console.log(response_data)
+    console.log(response)
     const response_data = await response.json()
+    console.log(response_data)
 
   } catch (error) {
     core.setFailed(error.message)
