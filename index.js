@@ -5,9 +5,6 @@ const github = require('@actions/github')
 
 
 const actionToken = core.getInput('actionToken')
-const compatibilityMin = core.getInput('compatibilityMin')
-const compatibilityMax = core.getInput('compatibilityMax')
-const compatibilityVerified = core.getInput('compatibilityVerified')
 const dryRun = core.getInput('dryRun')
 const foundryToken = core.getInput('foundryToken')
 const manifestFileName = core.getInput('manifestFileName')
@@ -52,13 +49,13 @@ async function updatePackage () {
 
     const version = manifestFileData.version
 
-    const compatibilityMaxFromManifest = manifestFileData.compatibility?.minumum || compatibilityMin
+    const compatibilityMaxFromManifest = manifestFileData.compatibility?.maximum
     console.log(compatibilityMaxFromManifest)
 
-    const compatibilityMinFromManifest = manifestFileData.compatibility?.minumum || compatibilityMin
+    const compatibilityMinFromManifest = manifestFileData.compatibility?.minumum
     console.log(compatibilityMinFromManifest)
 
-    const compatibilityVerifiedFromManifest = manifestFileData.compatibility?.minumum || compatibilityMin
+    const compatibilityVerifiedFromManifest = manifestFileData.compatibility?.verified
     console.log(compatibilityVerifiedFromManifest)
 
     const releaseNotesUrl = `https://github.com/${owner}/${repo}/releases/tag/${version}`
@@ -78,9 +75,9 @@ async function updatePackage () {
           "manifest": assetFileData.browser_download_url,
           "notes": releaseNotesUrl,
           "compatibility": {
-            "minimum": compatibilityMin,
-            "verified": compatibilityVerified,
-            "maximum": compatibilityMax
+            "minimum": compatibilityMinFromManifest,
+            "verified": compatibilityVerifiedFromManifest,
+            "maximum": compatibilityMaxFromManifest
           }
         }
       })

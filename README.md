@@ -35,21 +35,11 @@ jobs:
         with:
           actionToken: ${{ secrets.GITHUB_TOKEN }}
           manifestFileName: 'system.json'
-          compatibilityMin: '12'
-          compatibilityMax: '12'
-          compatibilityVerified: '12'
           foundryToken: ${{ secrets.FOUNDRY_PACKAGE_RELEASE_TOKEN }}
           dryRun: false
 ```
 
 For `manifestFileName` you will enter `module.json` or `system.json` depending on your project.
-
-For:
-- `compatibilityMin`
-- `compatibilityMax`
-- `compatibilityVerified`
-
-Those are the major release of Foundry that this package is compatible with (e.g. 11 or 12)
 
 For `foundryToken` - the package release token that can be found on the package's page on the Foundry website:
 `https://foundryvtt.com/packages/<MY-PACKAGE-SLUG>/edit`
