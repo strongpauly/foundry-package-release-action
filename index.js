@@ -37,15 +37,19 @@ async function updatePackage () {
       core.setFailed('No AssetID for manifest file')
     }
 
-    const manifestUrl = `https://api.github.com/repos/${owner}/${repo}/releases/assets/${assetID}`
-    console.log(manifestUrl)
+    const manifestAssetUrl = `https://api.github.com/repos/${owner}/${repo}/releases/assets/${assetID}`
+    console.log(manifestAssetUrl)
 
-    const versionFileResponse = await fetch(manifestUrl)
-    const versionFileData = versionFileResponse.json()
-    console.log(versionFileData)
-    const version = versionFileData.version
+    const manifestAssetResponse = await fetch(manifestAssetUrl)
+    console.log(manifestAssetResponse)
+    const assetFileData = await manifestAssetResponse.json()
+    console.log(assetFileData)
+    const manifestFileResponse = await fetch(assetFileData.browser_download_url)
+    const manifestFileData = await manifestFileResponse.json()
 
-    const compatibilityMinFromManifest = versionFileData.compatibility?.minumum
+    const version = manifestFileData.version
+
+    const compatibilityMinFromManifest = manifestFileData.compatibility?.minumum
     console.log(compatibilityMinFromManifest)
 
     const releaseNotesUrl = `https://github.com/${owner}/${repo}/releases/tag/${version}`
