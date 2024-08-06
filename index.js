@@ -66,7 +66,7 @@ async function updatePackage () {
         "dry-run": dryRun,
         "release": {
           "version": version,
-          "manifest": manifestUrl,
+          "manifest": assetFileData.browser_download_url,
           "notes": releaseNotesUrl,
           "compatibility": {
             "minimum": compatibilityMin,
