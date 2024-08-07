@@ -64,6 +64,9 @@ async function updatePackage() {
         console.log("Foundry Token")
         console.log(foundryToken)
 
+        console.log("Dry Run")
+        console.log(dryRun)
+
         const foundryResponse = await fetch("https://api.foundryvtt.com/_api/packages/release_version/", {
             headers: {
                 'Content-Type': 'application/json',
