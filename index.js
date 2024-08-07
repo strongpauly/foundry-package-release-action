@@ -46,11 +46,8 @@ async function updatePackage() {
         const manifestFileData = await manifestAssetResponse.json()
         console.log(manifestFileData)
 
-        console.log("about to parse manifest file data")
-        console.log(manifestFileData)
-        console.log(manifestFileData.version)
-
         const version = manifestFileData.version
+        console.log(version)
 
         const compatibilityMaxFromManifest = manifestFileData.compatibility?.maximum
         console.log(compatibilityMaxFromManifest)
