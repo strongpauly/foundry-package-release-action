@@ -65,7 +65,7 @@ async function updatePackage() {
         console.log(foundryToken)
 
         console.log("Dry Run")
-        const dryRunBoolean = (myValue === 'true');
+        const dryRunBoolean = (dryRun === 'true');
         console.log(dryRunBoolean)
 
         const foundryResponse = await fetch("https://api.foundryvtt.com/_api/packages/release_version/", {
