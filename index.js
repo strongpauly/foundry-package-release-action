@@ -78,7 +78,7 @@ async function updatePackage() {
                 "dry-run": dryRun,
                 "release": {
                     "version": version,
-                    "manifest": assetFileData.manifest,
+                    "manifest": manifestFileData.manifest,
                     "notes": releaseNotesUrl,
                     "compatibility": {
                         "minimum": compatibilityMinFromManifest,
