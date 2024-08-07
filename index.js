@@ -43,13 +43,10 @@ async function updatePackage() {
             }
         })
         console.log(manifestAssetResponse)
-        const assetFileData = await manifestAssetResponse.json()
-        console.log(assetFileData)
+        const manifestFileData = await manifestAssetResponse.json()
+        console.log(manifestFileData)
 
-        // const manifestFileResponse = await fetch(assetFileData.browser_download_url)
-        // const manifestFileData = await manifestFileResponse.json()
         console.log("about to parse manifest file data")
-        const manifestFileData = assetFileData
         console.log(manifestFileData)
         console.log(manifestFileData.version)
 
@@ -67,6 +64,9 @@ async function updatePackage() {
         const releaseNotesUrl = `https://github.com/${owner}/${repo}/releases/tag/${version}`
         console.log(releaseNotesUrl)
 
+        console.log("Foundry Token")
+        console.log(foundryToken)
+
         const foundryResponse = await fetch("https://api.foundryvtt.com/_api/packages/release_version/", {
             headers: {
                 'Content-Type': 'application/json',
@@ -78,7 +78,7 @@ async function updatePackage() {
                 "dry-run": dryRun,
                 "release": {
                     "version": version,
-                    "manifest": assetFileData.browser_download_url,
+                    "manifest": assetFileData.manifest,
                     "notes": releaseNotesUrl,
                     "compatibility": {
                         "minimum": compatibilityMinFromManifest,
