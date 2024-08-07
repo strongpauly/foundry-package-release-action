@@ -20,7 +20,7 @@ async function updatePackage() {
             owner: owner,
             repo: repo,
         })
-        console.log(latestRelease.data.assets)
+        // console.log(latestRelease.data.assets)
 
         // Get the Asset ID of the version file from the release info
         let assetID = 0
@@ -35,39 +35,36 @@ async function updatePackage() {
         }
 
         const manifestAssetUrl = `https://api.github.com/repos/${owner}/${repo}/releases/assets/${assetID}`
-        console.log(manifestAssetUrl)
+        // console.log(manifestAssetUrl)
 
         const manifestAssetResponse = await fetch(manifestAssetUrl, {
             headers: {
                 Authorization: `token ${actionToken}`, Accept: 'application/octet-stream'
             }
         })
-        console.log(manifestAssetResponse)
+        // console.log(manifestAssetResponse)
         const manifestFileData = await manifestAssetResponse.json()
         console.log(manifestFileData)
 
         const version = manifestFileData.version
-        console.log(version)
+        // console.log(version)
 
         const compatibilityMaxFromManifest = manifestFileData.compatibility?.maximum
-        console.log(compatibilityMaxFromManifest)
+        // console.log(compatibilityMaxFromManifest)
 
         const compatibilityMinFromManifest = manifestFileData.compatibility?.minimum
-        console.log(compatibilityMinFromManifest)
+        // console.log(compatibilityMinFromManifest)
 
         const compatibilityVerifiedFromManifest = manifestFileData.compatibility?.verified
-        console.log(compatibilityVerifiedFromManifest)
+        // console.log(compatibilityVerifiedFromManifest)
 
         const releaseNotesUrl = `https://github.com/${owner}/${repo}/releases/tag/${version}`
-        console.log(releaseNotesUrl)
+        // console.log(releaseNotesUrl)
 
-        console.log("Foundry Token")
-        console.log(foundryToken)
-
-        console.log("Dry Run")
-        console.log(dryRun)
+        // console.log("Dry Run")
         const dryRunBoolean = dryRun.toLowerCase() === 'true'
-        console.log(dryRunBoolean)
+        // console.log(dryRun)
+        // console.log(dryRunBoolean)
 
         const foundryResponse = await fetch("https://api.foundryvtt.com/_api/packages/release_version/", {
             headers: {
