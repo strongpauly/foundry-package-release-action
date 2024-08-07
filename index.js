@@ -46,8 +46,10 @@ async function updatePackage() {
         const assetFileData = await manifestAssetResponse.json()
         console.log(assetFileData)
 
-        const manifestFileResponse = await fetch(assetFileData.browser_download_url)
-        const manifestFileData = await manifestFileResponse.json()
+        // const manifestFileResponse = await fetch(assetFileData.browser_download_url)
+        // const manifestFileData = await manifestFileResponse.json()
+        console.log("about to parse manifest file data")
+        const manifestFileData = assetFileData
         console.log(manifestFileData)
         console.log(manifestFileData.version)
 
