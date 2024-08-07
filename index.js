@@ -65,7 +65,8 @@ async function updatePackage() {
         console.log(foundryToken)
 
         console.log("Dry Run")
-        console.log(dryRun)
+        const dryRunBoolean = Boolean(dryRun)
+        console.log(dryRunBoolean)
 
         const foundryResponse = await fetch("https://api.foundryvtt.com/_api/packages/release_version/", {
             headers: {
@@ -75,7 +76,7 @@ async function updatePackage() {
             method: "POST",
             body: JSON.stringify({
                 "id": repo,
-                "dry-run": dryRun,
+                "dry-run": dryRunBoolean,
                 "release": {
                     "version": version,
                     "manifest": manifestFileData.manifest,
