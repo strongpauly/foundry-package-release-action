@@ -65,6 +65,7 @@ async function updatePackage() {
         console.log(foundryToken)
 
         console.log("Dry Run")
+        console.log(dryRun)
         const dryRunBoolean = (dryRun === 'true');
         console.log(dryRunBoolean)
 
