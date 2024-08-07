@@ -14,7 +14,6 @@ const repo = github.context.payload.repository.name
 
 async function updatePackage() {
     try {
-
         // Download release
         const latestRelease = await octokit.rest.repos.getLatestRelease({
             owner: owner,
@@ -35,7 +34,7 @@ async function updatePackage() {
         }
 
         const manifestAssetUrl = `https://api.github.com/repos/${owner}/${repo}/releases/assets/${assetID}`
-        // console.log(manifestAssetUrl)
+        console.debug(manifestAssetUrl)
 
         const manifestAssetResponse = await fetch(manifestAssetUrl, {
             headers: {
@@ -47,24 +46,24 @@ async function updatePackage() {
         console.log(manifestFileData)
 
         const version = manifestFileData.version
-        // console.log(version)
+        console.debug(version)
 
         const compatibilityMaxFromManifest = manifestFileData.compatibility?.maximum
-        // console.log(compatibilityMaxFromManifest)
+        console.debug(compatibilityMaxFromManifest)
 
         const compatibilityMinFromManifest = manifestFileData.compatibility?.minimum
-        // console.log(compatibilityMinFromManifest)
+        console.debug(compatibilityMinFromManifest)
 
         const compatibilityVerifiedFromManifest = manifestFileData.compatibility?.verified
-        // console.log(compatibilityVerifiedFromManifest)
+        console.debug(compatibilityVerifiedFromManifest)
 
         const releaseNotesUrl = `https://github.com/${owner}/${repo}/releases/tag/${version}`
-        // console.log(releaseNotesUrl)
+        console.debug(releaseNotesUrl)
 
-        // console.log("Dry Run")
+        console.debug("Dry Run")
         const dryRunBoolean = dryRun.toLowerCase() === 'true'
-        // console.log(dryRun)
-        // console.log(dryRunBoolean)
+        console.debug(dryRun)
+        console.debug(dryRunBoolean)
 
         const foundryResponse = await fetch("https://api.foundryvtt.com/_api/packages/release_version/", {
             headers: {
@@ -90,7 +89,8 @@ async function updatePackage() {
         console.log(foundryResponse)
         if (foundryResponse.status === 200) {
             const foundryResponseData = await foundryResponse.json()
-            console.log(foundryResponseData)
+            console.log(foundryResponse.statusText)
+            console.debug(foundryResponseData)
         } else {
             core.setFailed(foundryResponse.statusText)
         }
