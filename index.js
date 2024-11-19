@@ -57,7 +57,7 @@ async function updatePackage() {
         const compatibilityVerifiedFromManifest = manifestFileData.compatibility?.verified
         console.debug(compatibilityVerifiedFromManifest)
 
-        const releaseNotesUrl = `https://github.com/${owner}/${repo}/releases/tag/${version}`
+        const releaseNotesUrl = `https://github.com/${owner}/${repo}/releases/tag/v${version}`
         console.debug(releaseNotesUrl)
 
         console.debug("Dry Run")
